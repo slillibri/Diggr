@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Uri:</b>
+  <%= @url.uri %>
+</p>
+
+<p>
+  <b>Name:</b>
+  <%= @url.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @url.description %>
+</p>
+
+<p>
+  <b>Created by:</b>
+  <%= @url.created_by %>
+</p>
+
+
+<%= link_to 'Edit', edit_url_path(@url) %> |
+<%= link_to 'Back', urls_path %>

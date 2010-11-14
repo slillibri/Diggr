@@ -2,24 +2,24 @@
 
 <p>
   <b>Uri:</b>
-  <%= @url.uri %>
+  <%= @link.uri %>
 </p>
 
 <p>
   <b>Name:</b>
-  <%= @url.name %>
+  <%= @link.name %>
 </p>
 
 <p>
   <b>Description:</b>
-  <%= @url.description %>
+  <%= @link.description %>
 </p>
 
 <p>
   <b>Created by:</b>
-  <%= @url.created_by %>
+  <%= @link.created_by %>
 </p>
 
 
-<%= link_to 'Edit', edit_url_path(@url) %> |
-<%= link_to 'Back', urls_path %>
+<%= link_to 'Edit', edit_link_path(@link) %> |
+<%= link_to 'Back', links_path %>

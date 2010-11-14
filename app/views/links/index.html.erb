@@ -5,7 +5,6 @@
   <tr>
     <th></th>
     <th></th>
-    <th>Uri</th>
     <th>Name</th>
     <th>Description</th>
     <th>Created by</th>
@@ -16,8 +15,7 @@
   <tr>
     <td><%= link_to "Upvote", vote_link_path(link, :vote => 'upvote') %></td>
     <td><%= link_to "Downvote", vote_link_path(link, :vote => 'downvote') %></td>
-    <td><%= link.uri %></td>
-    <td><%= link.name %></td>
+    <td><%= link_to link.name, link.uri %></td>
     <td><%= link.description %></td>
     <td><%= User.find(link.created_by).user_name %></td>
     <td><%= link.votes %></td>

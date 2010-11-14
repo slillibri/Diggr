@@ -1,5 +1,5 @@
 <% if !@link%>
-  <%= content_tag('b', "Shit, our model is nil for some reason #{@url.to_s}") %>
+  <%= content_tag('b', "Shit, our model is nil for some reason #{@link.to_s}") %>
 <% else %>
   <%= form_for @link do |f| %>
     <% if @link.errors.any? %>

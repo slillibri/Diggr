@@ -2,9 +2,11 @@
 <html>
 <head>
   <title>Diggr</title>
-  <%= stylesheet_link_tag :all %>
-  <%= stylesheet_link_tag 'blueprint/screen.css' %>
-  <%= javascript_include_tag :defaults %>
+  <% bundle do %>
+    <%= stylesheet_link_tag :all %>
+    <%= stylesheet_link_tag 'blueprint/screen.css' %>
+    <%= javascript_include_tag :defaults %>
+  <% end %>
   <%= csrf_meta_tag %>
 </head>
 <body>

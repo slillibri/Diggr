@@ -1,25 +1,26 @@
+<div id='urls' class='span-24 last'>
 <h1>Listing urls</h1>
 
 <table>
   <tr>
+    <th></th>
+    <th></th>
     <th>Uri</th>
     <th>Name</th>
     <th>Description</th>
     <th>Created by</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Votes</th>
   </tr>
 
 <% @urls.each do |url| %>
   <tr>
+    <td><%= link_to "Upvote", vote_url_path(url, :vote => 'upvote') %></td>
+    <td><%= link_to "Downvote", vote_url_path(url, :vote => 'downvote') %></td>
     <td><%= url.uri %></td>
     <td><%= url.name %></td>
     <td><%= url.description %></td>
-    <td><%= url.created_by %></td>
-    <td><%= link_to 'Show', url %></td>
-    <td><%= link_to 'Edit', edit_url_path(url) %></td>
-    <td><%= link_to 'Destroy', url, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= User.find(url.created_by).user_name %></td>
+    <td><%= url.votes %></td>
   </tr>
 <% end %>
 </table>
@@ -27,3 +28,4 @@
 <br />
 
 <%= link_to 'New Url', new_url_path %>
+</div>

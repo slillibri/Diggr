@@ -3,12 +3,33 @@
 <head>
   <title>Diggr</title>
   <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag 'blueprint/screen.css' %>
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-
+  <div class='container'>
+      <div id='title' class='span-18'>
+        <h1>Digger</h1>
+        <h3>A little digg clone using Rails and Redis</h3>
+      </div>
+      <div class='span-6 last'>
+        <% if user_signed_in? %>
+          Welcome <%= current_user.user_name %>. Not you? <%= link_to "Sign Out", destroy_user_session_path %>
+        <% else %>
+          <%= link_to "Sign Up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+        <% end %>
+      </div>
+  </div>
+  <div id='flash' class='span-24 last'><p><%= flash[:notice] %></p></div><br>
 <%= yield %>
+
+<% if RAILS_ENV == 'development' %>
+  <div id='session' class='span-24 last'>
+    <%= content_tag('b', "Session Data", :class => 'alt') %><br/>
+    <%= session.inspect %>
+  </div>
+<% end %>
 
 </body>
 </html>

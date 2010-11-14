@@ -7,6 +7,10 @@ gem 'rails', '3.0.1'
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'resque'
+gem 'devise', '1.1.rc0'
+gem 'SystemTimer'
+gem 'sunspot', '1.1.0'
+gem 'sunspot_rails', '1.1.0'
 
 # Use unicorn as the web server
 gem 'unicorn'

@@ -1,6 +1,13 @@
 Diggr::Application.routes.draw do
-  resources :urls
+  devise_for :users
 
+  resources :urls
+  root :to => "urls#index"
+  resources :urls do
+    member do
+      get 'vote'
+    end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

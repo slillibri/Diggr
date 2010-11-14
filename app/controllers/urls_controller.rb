@@ -1,8 +1,10 @@
 class UrlsController < ApplicationController
+  before_filter :authenticate_user!, :except => ['index', 'show']
+  
   # GET /urls
   # GET /urls.xml
   def index
-    @urls = Url.all
+    @urls = Url.all(:order => 'created_at desc', :limit => 20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -40,8 +42,7 @@ class UrlsController < ApplicationController
   # POST /urls
   # POST /urls.xml
   def create
-    @url = Url.new(params[:url])
-
+    @url = Url.new(params[:url].merge(:created_by => current_user))    
     respond_to do |format|
       if @url.save
         format.html { redirect_to(@url, :notice => 'Url was successfully created.') }
@@ -79,5 +80,24 @@ class UrlsController < ApplicationController
       format.html { redirect_to(urls_url) }
       format.xml  { head :ok }
     end
+  end
+  
+  # GET /url/1/vote
+  def vote
+    @url = Url.find(params[:id])
+    unless @url.voters.include?(current_user.user_name)
+      if params[:vote] == 'upvote'
+        if @url.upvote
+          @url.add_voter(current_user)
+        end
+      else
+        if @url.downvote
+          @url.add_voter(current_user)
+        end
+      end
+    else
+      flash[:notice] = 'You voted on this already'
+    end
+    redirect_to :action => 'index'
   end
 end

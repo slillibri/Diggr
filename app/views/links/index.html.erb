@@ -1,0 +1,31 @@
+<div id='links' class='span-24 last'>
+<h1>Listing links</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th>Uri</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Created by</th>
+    <th>Votes</th>
+  </tr>
+
+<% @links.each do |link| %>
+  <tr>
+    <td><%= link_to "Upvote", vote_link_path(link, :vote => 'upvote') %></td>
+    <td><%= link_to "Downvote", vote_link_path(link, :vote => 'downvote') %></td>
+    <td><%= link.uri %></td>
+    <td><%= link.name %></td>
+    <td><%= link.description %></td>
+    <td><%= User.find(link.created_by).user_name %></td>
+    <td><%= link.votes %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Url', new_link_path %>
+</div>

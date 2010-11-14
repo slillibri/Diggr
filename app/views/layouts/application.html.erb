@@ -20,9 +20,9 @@
           <%= link_to "Sign Up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
         <% end %>
       </div>
-  </div>
-  <div id='flash' class='span-24 last'><p><%= flash[:notice] %></p></div><br>
+      <div id='flash' class='span-24 last'><p><%= flash[:notice] %></p></div><br>
 <%= yield %>
+</div>
 
 <% if RAILS_ENV == 'development' %>
   <div id='session' class='span-24 last'>

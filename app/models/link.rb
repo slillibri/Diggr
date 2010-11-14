@@ -1,4 +1,4 @@
-class Url < ActiveRecord::Base
+class Link < ActiveRecord::Base
   require 'digest/sha1'
   
   def upvote
@@ -17,6 +17,8 @@ class Url < ActiveRecord::Base
   
   def voters
     voters = redis.smembers("#{key}:voters")
+    voters ||= []
+    voters
   end
   
   def add_voter(user)

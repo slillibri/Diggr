@@ -1,9 +1,9 @@
 Diggr::Application.routes.draw do
   devise_for :users
 
-  resources :urls
-  root :to => "urls#index"
-  resources :urls do
+  resources :links
+  root :to => "links#index"
+  resources :links do
     member do
       get 'vote'
     end

@@ -9,6 +9,7 @@
     <th>Description</th>
     <th>Created by</th>
     <th>Votes</th>
+    <th></th>
   </tr>
 
 <% @links.each do |link| %>
@@ -19,6 +20,7 @@
     <td><%= link.description %></td>
     <td><%= User.find(link.created_by).user_name %></td>
     <td><%= link.votes %></td>
+    <td><%= link_to "Comment", new_comment_path(:link => link) %> (<%= link.comments.count %>)</td>
   </tr>
 <% end %>
 </table>

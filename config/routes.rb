@@ -1,4 +1,6 @@
 Diggr::Application.routes.draw do
+  resources :comments
+
   devise_for :users
 
   resources :links

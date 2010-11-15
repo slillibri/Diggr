@@ -1,5 +1,7 @@
 class Link < ActiveRecord::Base
   require 'digest/sha1'
+
+  has_many :comments
   
   def upvote
     redis.incr("#{key}:votes")

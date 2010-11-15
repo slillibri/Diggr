@@ -1,0 +1,19 @@
+<div id='show_comment' class='span-24'>
+  <p>
+    <b>Description:</b>
+    <%= @comment.description %>
+  </p>
+
+  <p>
+    <b>User:</b>
+    <%= @comment.user.user_name %>
+  </p>
+
+  <p>
+    <b>Link:</b>
+    <%= @comment.link.name %>
+  </p>
+
+
+  <%= link_to 'Back', comments_path %>
+</div>

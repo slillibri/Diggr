@@ -1,19 +1,13 @@
-<div id='show_comment' class='span-24'>
-  <p>
-    <b>Description:</b>
+<div id='show_comment' class='span-24 showgrid'>
+  <div id='comment_link' class='span-24 last'>
+    <h2><%= @comment.link.name %></h2>
+  </div>
+  <div id='comment_user' class='span-4'>
+    <b>User:</b> <%= @comment.user.user_name %>
+  </div>
+  <div id='comment_desc' class='span-20 last'>
     <%= @comment.description %>
-  </p>
-
-  <p>
-    <b>User:</b>
-    <%= @comment.user.user_name %>
-  </p>
-
-  <p>
-    <b>Link:</b>
-    <%= @comment.link.name %>
-  </p>
-
+  </div>
 
   <%= link_to 'Back', comments_path %>
 </div>

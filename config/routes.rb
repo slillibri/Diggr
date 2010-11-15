@@ -1,13 +1,17 @@
 Diggr::Application.routes.draw do
-  resources :comments
-
   devise_for :users
 
-  resources :links
   root :to => "links#index"
   resources :links do
     member do
       get 'vote'
+    end
+  end
+  
+  resources :comments do
+    member do
+      get 'reply'
+      post 'create_reply'
     end
   end
   # The priority is based upon order of creation:

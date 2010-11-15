@@ -83,4 +83,18 @@ class CommentsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def reply
+    @parent = Comment.find(params[:id])
+    @comment = Comment.new
+  end
+  
+  def create_reply
+    @parent = Comment.find(params[:id])
+    @comment = @parent.children.create(params[:comment].merge(:user => current_user, :link => @parent.link))
+    
+    respond_to do |wants|
+      wants.html { redirect_to(@parent, :notice => 'Comment was successfully created') }
+    end
+  end
 end

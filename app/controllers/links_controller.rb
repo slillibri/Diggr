@@ -100,4 +100,8 @@ class LinksController < ApplicationController
     end
     redirect_to :action => 'index'
   end
+  
+  def show_comments
+    @link = Link.find(params[:id])    
+  end
 end

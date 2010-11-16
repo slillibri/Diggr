@@ -20,7 +20,12 @@
     <td><%= link.description %></td>
     <td><%= User.find(link.created_by).user_name %></td>
     <td><%= link.votes %></td>
-    <td><%= link_to "Comment", new_comment_path(:link => link) %> (<%= link_to link.comments.count, comments_path(link.comments.first) %>)</td>
+    <td><%= link_to "Comment", new_comment_path(:link => link) %> 
+      <% if link.comments.count > 0 %>
+        (<%= link_to link.comments.count, show_comments_link_path(link) %>)
+      <% else %>
+        (0)
+      <% end %></td>
   </tr>
 <% end %>
 </table>

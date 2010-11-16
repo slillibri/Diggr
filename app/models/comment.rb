@@ -3,4 +3,13 @@ class Comment < ActiveRecord::Base
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   
   acts_as_tree :order => 'created_at'
+  
+  before_save :calculate_depth
+  
+  private
+  def calculate_depth
+    unless self.parent.nil?
+      self.depth = self.parent.depth + 1
+    end
+  end
 end

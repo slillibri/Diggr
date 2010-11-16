@@ -1,30 +1,9 @@
-<div id='show_comment' class='span-24 showgrid'>
-  <div id='comment_link' class='span-24 last'>
-    <h2><%= @comment.link.name %></h2>
-    <div id='comment_user' class='span-4'>
-      <b>User:</b> <%= @comment.user.user_name %>
-    </div>
-    <div id='comment_desc' class='span-20 last'>
-      <%= @comment.description %>
-    </div>
-    <div id='reply' class='span-24'>
-      <%= link_to 'Reply', reply_comment_path(@comment) %>
-    </div>
-  </div>
+<div id='link_name' class='span-24 last'><%= link_to @link.name, link_path(@link) %></div>
 
-  <% if @comment.children %>
-    <% @comment.children.each do |child| %>
-      <div id='comment_user' class='span-4'>
-        <b>User:</b> <%= child.user.user_name %>
-      </div>
-      <div id='comment_desc' class='span-20 last'>
-        <%= child.description %>
-      </div>
-      <div id='reply' class='span-24'>
-        <%= link_to 'Reply', reply_comment_path(child) %>
-      </div>
+  <div id='comments' class='span-24 last'>
+    <% @link.comments.each do |comment| %>
+      <%= format_comment(comment) %>
     <% end %>
-  <% end %>
-  
-  <%= link_to 'Back', comments_path %>
+    <%= link_to 'Back', comments_path %>
+  </div>
 </div>

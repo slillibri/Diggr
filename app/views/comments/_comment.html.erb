@@ -1,0 +1,13 @@
+<div id="show_comment_<%=comment.id%>" class="span-24">
+  <div id="comment_link_<%=comment.id%>" class='span-<%= span %> prepend-<%= offset %> last'>
+    <div id="comment_user_<%=comment.id%>" class="span-4 prepend-<%=offset%>">
+      <b>User:</b> <%= comment.user.user_name %>
+    </div>
+    <div id="comment_desc_<%=comment.id%>" class="span-<%=desc%> last">
+      <%= comment.description %>
+    </div>
+    <div id='reply' class="span-<%=span%> prepend-<%=offset%> last">
+      <%= link_to 'Reply', reply_comment_path(comment) %>
+    </div>
+  </div>
+</div>

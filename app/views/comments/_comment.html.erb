@@ -1,5 +1,6 @@
+<% style = ['white', 'blue'][highlight] %>
 <div id="show_comment_<%=comment.id%>" class="span-24">
-  <div id="comment_link_<%=comment.id%>" class='span-<%= span %> prepend-<%= offset %> last'>
+  <div id="comment_link_<%=comment.id%>" class='span-<%= span %> prepend-<%= offset %> <%= style %> last'>
     <div id="comment_user_<%=comment.id%>" class="span-4 prepend-<%=offset%>">
       <b>User:</b> <%= comment.user.user_name %>
     </div>

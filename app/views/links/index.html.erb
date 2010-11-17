@@ -22,7 +22,7 @@
     <td><%= link.votes %></td>
     <td><%= link_to "Comment", new_comment_path(:link => link) %> 
       <% if link.comments.count > 0 %>
-        (<%= link_to link.comments.count, show_comments_link_path(link) %>)
+        (<%= link_to link.comments.count, link_path(link) %>)
       <% else %>
         (0)
       <% end %></td>

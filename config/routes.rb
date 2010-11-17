@@ -5,7 +5,6 @@ Diggr::Application.routes.draw do
   resources :links do
     member do
       get 'vote'
-      get 'show_comments'
     end
   end
   

@@ -16,7 +16,8 @@ class LinksController < ApplicationController
   # GET /links/1.xml
   def show
     @link = Link.find(params[:id])
-
+    @comments = print_parents(@link)
+    
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @link }
@@ -104,4 +105,30 @@ class LinksController < ApplicationController
   def show_comments
     @link = Link.find(params[:id])    
   end
+  
+  private
+  def print_parents(link)
+    html = []
+    parents = link.comments.select{|c| c.parent.nil? }
+    parents.each do |parent|
+      logger.debug("#{parent.id} : #{parent.parent_id} : #{parent.children.count}")
+      html << render_to_string(:partial => 'comments/comment',
+                               :locals => {:comment => parent, :span => 24, :offset => 0, :desc => 4, :highlight => (html.size % 2)})
+      print_children(parent, html)
+    end
+    html
+  end
+
+  def print_children(parent, html)
+    parent.children.each do |child|
+      logger.debug("#{child.id} : #{child.parent_id} : #{child.children.count}")
+      span = 24 - child.depth
+      desc = span - child.depth - 4
+      html << render_to_string(:partial => 'comments/comment',
+                               :locals => {:comment => child, :span => span, :offset => child.depth, :desc => desc, :highlight => (html.size % 2)})
+      if child.children.count > 0
+        print_children(child, html)
+      end
+    end
+  end  
 end

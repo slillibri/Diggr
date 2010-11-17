@@ -46,7 +46,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to(@link, :notice => 'Comment was successfully created.') }
+        format.html { redirect_to(:controller => 'links', :id => @link, :notice => 'Comment was successfully created.') }
         format.xml  { render :xml => @comment, :status => :created, :location => @link }
       else
         format.html { render :action => "new" }
@@ -93,7 +93,7 @@ class CommentsController < ApplicationController
     @comment = @parent.children.create(params[:comment].merge(:user => current_user, :link => @parent.link))
     
     respond_to do |wants|
-      wants.html { redirect_to(@parent, :notice => 'Comment was successfully created') }
+      wants.html { redirect_to(:controller => 'links', :action => 'show', :id => @parent.link, :notice => 'Comment was successfully created') }
     end
   end
 end

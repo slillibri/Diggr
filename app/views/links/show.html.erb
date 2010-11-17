@@ -1,25 +1,11 @@
-<p id="notice"><%= notice %></p>
+<div id="link_<%= @link.id %>" class='span-24 last'>
+  <div id="link_description" class='span-23 append-1 last'><%= @link.description%></div>
+</div>
 
-<p>
-  <b>Uri:</b>
-  <%= @link.uri %>
-</p>
+<div id='link_comments' class='span-24 last'>
+  <% @comments.each do |comment| %>
+    <%= comment %>
+  <% end %>
+</div>
 
-<p>
-  <b>Name:</b>
-  <%= @link.name %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%= @link.description %>
-</p>
-
-<p>
-  <b>Created by:</b>
-  <%= @link.created_by %>
-</p>
-
-
-<%= link_to 'Edit', edit_link_path(@link) %> |
 <%= link_to 'Back', links_path %>

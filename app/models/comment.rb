@@ -9,7 +9,7 @@ class Comment < ActiveRecord::Base
   private
   def calculate_depth
     unless self.parent.nil?
-      self.depth = self.parent.depth + 1
+      self.depth = self.ancestors.count
     end
   end
 end

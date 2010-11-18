@@ -12,6 +12,8 @@ gem 'SystemTimer'
 gem 'acts_as_taggable'
 gem 'sunspot', '1.1.0'
 gem 'sunspot_rails', '1.1.0'
+gem 'ruby-mysql', :require => 'mysql'
+gem 'activemessaging'
 
 # Use unicorn as the web server
 gem 'unicorn'

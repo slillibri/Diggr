@@ -1,5 +1,7 @@
 class LinksController < ApplicationController
   before_filter :authenticate_user!, :except => ['index', 'show']
+  include ActiveMessaging::MessageSender
+  publishes_to :links
   
   # GET /links
   # GET /links.xml

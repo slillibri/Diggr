@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.1'
+gem 'rails', '3.0.3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -13,7 +13,9 @@ gem 'acts_as_taggable'
 gem 'sunspot', '1.1.0'
 gem 'sunspot_rails', '1.1.0'
 gem 'ruby-mysql', :require => 'mysql'
-gem 'activemessaging'
+gem 'stomp'
+gem 'nokogiri'
+gem 'sanitize'
 
 # Use unicorn as the web server
 gem 'unicorn'

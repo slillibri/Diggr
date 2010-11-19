@@ -47,7 +47,9 @@ class LinksController < ApplicationController
   def create
     @link = Link.new(params[:link].merge(:created_by => current_user))    
     respond_to do |format|
-      if @link.save
+      if @link.save!
+        logger.warn("#{@link.id}")
+        publish :links, "#{@link.id}\0"
         format.html { redirect_to(@link, :notice => 'Link was successfully created.') }
         format.xml  { render :xml => @link, :status => :created, :location => @link }
       else

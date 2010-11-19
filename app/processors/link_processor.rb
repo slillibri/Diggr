@@ -51,7 +51,7 @@ class LinkProcessor < ActiveMessaging::Processor
   ## Parse html and crap out of text to max_length
   def parse_text(text, max_length)
     ## Strip html
-    Sanitize::clean!(text)
+    Sanitize::clean!(text, :remove_contents => ['script','style'])
     text.gsub!(/[\n\t]+/, ' ')
     if(text.size > max_length)
       count = max_length

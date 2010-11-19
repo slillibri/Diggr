@@ -6,7 +6,7 @@ class LinksController < ApplicationController
   # GET /links
   # GET /links.xml
   def index
-    @links = Link.all(:order => 'created_at desc', :limit => 20)
+    @links = Link.all(:conditions => 'processed = 1', :order => 'created_at desc', :limit => 20)
 
     respond_to do |format|
       format.html # index.html.erb

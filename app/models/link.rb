@@ -1,14 +1,19 @@
 class Link < ActiveRecord::Base
   require 'digest/sha1'
-
+  include ActiveMessaging::MessageSender
+  publishes_to :index
+  
   has_many :comments, :class_name => "Comment", :foreign_key => "link_id"
 
   acts_as_taggable
   
-  searchable do
+  searchable :auto_index => false do
     text :name
     text :description
   end
+  
+  after_save :index
+  after_create :index
   
   def upvote
     redis.incr("#{key}:votes")
@@ -34,6 +39,10 @@ class Link < ActiveRecord::Base
     redis.sadd("#{key}:voters", user.user_name)
   end
 
+  def index
+    publish :index, "#{self.id}\0"
+  end
+
   private
   def redis
     Redis.connect(:url => REDIS_HOST)
@@ -42,4 +51,5 @@ class Link < ActiveRecord::Base
   def key
     Digest::SHA1.hexdigest(self.uri)
   end
+  
 end

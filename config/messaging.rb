@@ -8,4 +8,6 @@ ActiveMessaging::Gateway.define do |s|
   #s.processor_group :group1, :order_processor
   
   s.destination :links, '/queue/links'
+  s.destination :index, '/queue/index'
+  
 end

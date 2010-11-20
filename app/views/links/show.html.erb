@@ -2,10 +2,22 @@
   <div id="link_description" class='span-23 append-1 last'><%= @link.description%></div>
 </div>
 
+<div id='tags' class='span-24 last'>
+  <div id='add_tag' class='span-24 last'><%= link_to "Add Tag", new_tag_path(:link => @link) %></div>
+  <div id='tags_title' class='span-4'><h3>Tags</h3></div>
+  <div id='tags_list' class='span-20 last'>
+    <% @link.tags.each do |tag| %>
+      <%= tag.name%>
+    <% end %>
+  </div>
+</div>
+
 <div id='link_comments' class='span-24 last'>
   <% @comments.each do |comment| %>
     <%= comment %>
   <% end %>
 </div>
 
-<%= link_to 'Back', links_path %>
+<div class='span-24 last'>
+  <%= link_to 'Back', links_path %>
+</div>

@@ -2,6 +2,8 @@ class Link < ActiveRecord::Base
   require 'digest/sha1'
 
   has_many :comments, :class_name => "Comment", :foreign_key => "link_id"
+
+  acts_as_taggable
   
   def upvote
     redis.incr("#{key}:votes")

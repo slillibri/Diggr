@@ -14,6 +14,8 @@ Diggr::Application.routes.draw do
       post 'create_reply'
     end
   end
+  
+  resources :tags
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -6,3 +6,4 @@ development:
     port: 61613
     reliable: true
     reconnectDelay: 5
+    deadLetterQueue: '/queue/dead.letter'

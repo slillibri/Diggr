@@ -46,7 +46,8 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        format.html { redirect_to(:controller => 'links', :id => @link, :notice => 'Comment was successfully created.') }
+        flash[:notice] = 'Comment was successfully created.'
+        format.html { redirect_to(:controller => 'links', :id => @link) }
         format.xml  { render :xml => @comment, :status => :created, :location => @link }
       else
         format.html { render :action => "new" }
@@ -62,7 +63,8 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.update_attributes(params[:comment])
-        format.html { redirect_to(@comment, :notice => 'Comment was successfully updated.') }
+        flash[:notice] = 'Comment was successfully updated.'
+        format.html { redirect_to(@comment) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
@@ -93,7 +95,8 @@ class CommentsController < ApplicationController
     @comment = @parent.children.create(params[:comment].merge(:user => current_user, :link => @parent.link))
     
     respond_to do |wants|
-      wants.html { redirect_to(:controller => 'links', :action => 'show', :id => @parent.link, :notice => 'Comment was successfully created') }
+      flash[:notice] = 'Comment was successfully created'
+      wants.html { redirect_to(:controller => 'links', :action => 'show', :id => @parent.link) }
     end
   end
 end

@@ -1,0 +1,12 @@
+<div id='new_tag' class='span-24 last'>
+  <% form_for :tag, :url => {:action => 'create'} do |f| -%>
+    <%= f.hidden_field :link, :value => @link.id %>
+    <div class='field'>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+    </div>
+    <div class='actions'>
+      <%= f.submit "Submit", :disable_with => 'Submiting...' %>
+    </div>
+  <% end -%>
+</div>

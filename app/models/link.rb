@@ -5,6 +5,11 @@ class Link < ActiveRecord::Base
 
   acts_as_taggable
   
+  searchable do
+    text :name
+    text :description
+  end
+  
   def upvote
     redis.incr("#{key}:votes")
   end

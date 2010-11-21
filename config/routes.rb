@@ -7,6 +7,7 @@ Diggr::Application.routes.draw do
       get 'vote'
     end
   end
+  match 'links/results', :to => 'links#results', :via => 'post'
   
   resources :comments do
     member do

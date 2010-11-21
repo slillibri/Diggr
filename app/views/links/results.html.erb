@@ -1,0 +1,16 @@
+<div id='search_results' class='span-24 last'>
+
+  <div id='facet_header' class='span-24 last'>
+    <% @facets.each do |facet| %>
+    <div id="facet_<%= facet.value%>" class='span-2'><%= facet.instance.name %> (<%= facet.count %>)</div>
+    <% end %>
+  </div>
+  
+  <div id='results' class='span-24 last'>
+    <% @search.results.each do |result| %>
+    <div id="result_name_<%=result.id%>" class='span-4'><%= result.name %></div>
+    <div id="result_desc_<%=result.id%>" class='span-20 last'><%= result.description %></div>
+    <% end %>
+  </div>
+  <%= link_to "Back to links", links_path %>
+</div>

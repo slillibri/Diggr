@@ -112,6 +112,19 @@ class LinksController < ApplicationController
     @link = Link.find(params[:id])    
   end
   
+  def results
+    @search = Link.search do
+      keywords params[:link][:name]
+      facet :tag_ids
+    end
+    
+    @facets = @search.facet(:tag_ids).rows
+    
+    respond_to do |format|
+      format.html
+    end
+  end
+  
   private
   def print_parents(link)
     html = []

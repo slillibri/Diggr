@@ -34,5 +34,10 @@
 
 <br />
 
+<% form_for :link, :url => {:action  => 'results'} do |f| -%>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.submit "Submit", :disable_with => 'Submiting...' %>
+<% end -%>
 <%= link_to 'New Link', new_link_path %>
 </div>

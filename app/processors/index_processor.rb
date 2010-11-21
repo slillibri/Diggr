@@ -16,6 +16,9 @@ class IndexProcessor < ActiveMessaging::Processor
     begin
       logger.info("Processing message #{message}")
       link = Link.find(message)
+      if(link.processed = 0)
+        return
+      end
       link.index!
     rescue Exception => e
       logger.error(e)

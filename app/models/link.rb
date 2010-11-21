@@ -19,6 +19,9 @@ class Link < ActiveRecord::Base
   after_save :index
   after_create :index
   
+  cattr_reader :per_page
+  @@per_page = 10
+  
   def upvote
     redis.incr("#{key}:votes")
   end

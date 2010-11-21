@@ -1,43 +1,39 @@
 <div id='links' class='span-24 last'>
-<h1>Listing links</h1>
+  <h1>Listing links</h1>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Created by</th>
-    <th>Votes</th>
-    <th></th>
-    <th></th>
-  </tr>
+  <div class='span-24 last'>
+    <div class='span-3 prepend-3'><strong>Link</strong></div>
+    <div class='span-12'><strong>Description</strong></div>
+    <div class='span-2'><strong>Created By</strong></div>
+    <div class='span-2'></div>
+  <div class='span-2'></div>
+  </div>
+  <% for link in @links -%>
+    <div id="link_<%=link.id%>" class='span-24 last' style='margin-bottom: 10px'>
+      <div id="vote_action_<%=link.id%>" class='span-3'>
+        <div id="upvote_<%=link.id%>" class='span-3 last'><%= link_to "Upvote", vote_link_path(link, :vote => 'upvote') %></div>
+        <div id="downvote_<%=link.id%>" class='span-3 last'><%= link_to "Downvote", vote_link_path(link, :vote => 'downvote') %></div>
+        <div id="created_<%=link.id%>" class='span-3 last'><%= link.created_at%></div>
+      </div>
+      <div id="name_<%=link.id%>" class='span-3'><%= link_to link.name, link.uri %></div>
+      <div id="desc_<%=link.id%>" class='span-12'><%= link.description%></div>
+      <div id="creator_<%=link.id%>" class='span-2'><%= User.find(link.created_by).user_name %></div>
+      <div id="comments_<%=link.id%>" class='span-2'><%= link_to "Comments", new_comment_path(:link => link) %></div>
+      <div id="show_<%=link.id%>" class='span-2 last'><%= link_to "Show", link_path(link) %></div>
+    </div>
+  <% end %>
 
-<% @links.each do |link| %>
-  <tr>
-    <td><%= link_to "Upvote", vote_link_path(link, :vote => 'upvote') %></td>
-    <td><%= link_to "Downvote", vote_link_path(link, :vote => 'downvote') %></td>
-    <td><%= link_to link.name, link.uri %></td>
-    <td><%= link.description %></td>
-    <td><%= User.find(link.created_by).user_name %></td>
-    <td><%= link.votes %></td>
-    <td><%= link_to "Comment", new_comment_path(:link => link) %> 
-      <% if link.comments.count > 0 %>
-        (<%= link_to link.comments.count, link_path(link) %>)
-      <% else %>
-        (0)
-      <% end %></td>
-    <td><%= link_to "Show", link_path(link) %></td>
-  </tr>
-<% end %>
-</table>
+  <div class='span-24 append-bottom last'><%= will_paginate @links %></div>
 
-<br />
+  <div class='span-24 append-bottom last'>
+    <% form_for :link, :url => {:action  => 'results'} do |f| -%>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+      <%= f.submit "Submit", :disable_with => 'Submiting...' %>
+    <% end -%>
+  </div>
 
-<% form_for :link, :url => {:action  => 'results'} do |f| -%>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.submit "Submit", :disable_with => 'Submiting...' %>
-<% end -%>
-<%= link_to 'New Link', new_link_path %>
+  <div class='span-24 append-bottom last'>
+    <%= link_to 'New Link', new_link_path %>
+  </div>
 </div>

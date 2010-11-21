@@ -9,6 +9,8 @@ Redis is used to maintain the vote counts, and the sets of users who have alread
 
 Solr is used for full text indexing of the link title, contents, and tags. 
 
+In the future I plan on adding a scoring algorithm for the links to determine ordering, right now it just order by creation date.
+
 Some configuration notes:
   I have Solr setup to use multicore, so you would have the following in your solr.home directory
       <solr persistent="true" sharedLib="lib">
@@ -24,4 +26,3 @@ Some configuration notes:
         port: 8080
         path: /solr/sunspot
         log_level: DEBUG
-    

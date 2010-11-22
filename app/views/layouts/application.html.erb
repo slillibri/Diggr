@@ -17,17 +17,17 @@
         <h3>A little digg clone using Rails and Redis</h3>
       </div>
       <div class='span-6 last'>
-        <% if user_signed_in? %>
-          Welcome <%= current_user.user_name %>. Not you? <%= link_to "Sign Out", destroy_user_session_path %>
-        <% else %>
-          <%= link_to "Sign Up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path %>
+        <% if user_signed_in? -%>
+          Welcome <%= current_user.user_name -%>. Not you? <%= link_to "Sign Out", destroy_user_session_path -%>
+        <% else -%>
+          <%= link_to "Sign Up", new_user_registration_path %> or <%= link_to "Sign in", new_user_session_path -%>
         <% end %>
       </div>
       <div id='flash' class='span-24 last'><p><%= flash[:notice] %></p></div><br>
 <%= yield %>
 </div>
 
-<% if RAILS_ENV == 'development' %>
+<% if Rails.env == 'development' %>
   <div id='session' class='span-24 last'>
     <%= content_tag('b', "Session Data", :class => 'alt') %><br/>
     <%= session.inspect %>

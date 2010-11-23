@@ -6,4 +6,6 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :user_name
+  
+  validates_presence_of :user_name, :on => :create, :message => "can't be blank"
 end

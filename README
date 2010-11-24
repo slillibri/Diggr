@@ -11,6 +11,11 @@ Solr is used for full text indexing of the link title, contents, and tags.
 
 In the future I plan on adding a scoring algorithm for the links to determine ordering, right now it just order by creation date.
 
+
+vote_weight_points = 1 - (floor(vote created - hours since link created) * .1) || .1
+hours_weight_points = 1 - (floor(hours since created / 12) * .1) || .1
+Score = votes + vote_weight_points + hours_weight_points?
+
 Some configuration notes:
   I have Solr setup to use multicore, so you would have the following in your solr.home directory
       <solr persistent="true" sharedLib="lib">

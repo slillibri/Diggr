@@ -26,6 +26,7 @@
   <div class='span-24 append-bottom last'><%= will_paginate @links %></div>
 
   <div class='span-24 append-bottom last'>
+    <h3>Search links</h3>
     <%= form_for :link, :url => {:action  => 'results'} do |f| -%>
       <%= f.label :name %>
       <%= f.text_field :name %>

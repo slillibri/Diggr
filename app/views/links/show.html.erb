@@ -9,6 +9,7 @@
     <% @link.tags.each do |tag| %>
       <%= tag.name%>
     <% end %>
+    <%= link_to "Add tag", new_tag_path(@link) %>
   </div>
 </div>
 

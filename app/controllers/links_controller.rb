@@ -115,7 +115,7 @@ class LinksController < ApplicationController
   
   def results
     @search = Link.search do
-      keywords params[:link][:name]
+      keywords params[:link][:name].downcase!
       facet :tag_ids
     end
     

@@ -2,7 +2,7 @@ class TagsController < ApplicationController
   before_filter :authenticate_user!
   
   def new
-    @link = Link.find(params[:link])
+    @link = Link.find(params[:id])
   end
   
   def create

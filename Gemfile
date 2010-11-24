@@ -5,6 +5,7 @@ gem 'rails', '3.0.3'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
+gem 'builder', '3.0.0'
 gem 'resque'
 gem 'devise', '1.1.rc0'
 gem 'SystemTimer'

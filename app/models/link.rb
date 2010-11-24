@@ -9,7 +9,7 @@ class Link < ActiveRecord::Base
   
   searchable :auto_index => false do
     text :name
-    text :description
+    text :description, :as => :desc_textp, :default_boost => 2
     text :tags do
       tags.map{|tag| tag.name}
     end
@@ -17,7 +17,6 @@ class Link < ActiveRecord::Base
   end
   
   after_save :index
-  after_create :index
   
   cattr_reader :per_page
   @@per_page = 10

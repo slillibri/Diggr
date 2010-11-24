@@ -25,5 +25,6 @@ Diggr::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
   
   REDIS_HOST = 'redis://127.0.0.1:6379'
+  RSOLR_SERVER='http://localhost:8080/solr/rsolr'
 end
 

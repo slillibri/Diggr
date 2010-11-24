@@ -16,12 +16,14 @@ class IndexProcessor < ActiveMessaging::Processor
     begin
       logger.info("Processing message #{message}")
       link = Link.find(message)
-      if(link.processed = 0)
-        return
-      end
-      link.index!
+      rsolr = RSolr.connect(:url => 'http://localhost:8080/solr/rsolr')
+      doc = {:uri => link.uri, :name => link.name, :id => link.id, :description => link.description, :created_at => link.created_at.strftime("%Y-%m-%dT%H:%M:%SZ")}
+      logger.info("#{doc.to_yaml}")
+      rsolr.add(doc)
+      #rsolr.commit
     rescue Exception => e
-      logger.error(e)
+      logger.error(e.message)
+      logger.error(e.backtrace.join("\n"))
       raise ActiveMessaging::AbortMessageException
     end
     

@@ -1,9 +1,10 @@
 <div id='search_results' class='span-24 last'>
 
   <div id='results' class='span-24 last'>
+    <h3>Found <%= @total%> results</h3>
     <% @docs.each do |result| %>
     <div class='span-24 last' style='margin-bottom:10px'>
-      <div id="result_name_<%=result['id']%>" class='span-4'><%= raw(result['name'])%></div>
+      <div id="result_name_<%=result['id']%>" class='span-4'><%= link_to raw(result['name']), result['uri'] %></div>
       <div id="result_desc_<%=result['id']%>" class='span-20 last'><%= raw(result['description'])%></div>
     </div>
     <% end %>

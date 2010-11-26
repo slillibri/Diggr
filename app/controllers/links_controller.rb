@@ -125,7 +125,9 @@ class LinksController < ApplicationController
       doc['name'] = hl[doc['id']]['name'] unless hl[doc['id']]['name'].nil?
       doc['description'] = hl[doc['id']]['description'] unless hl[doc['id']]['description'].nil?
     end
-
+    
+    #TODO: pagination and faceting
+    
     @total = search['response']['numFound']
     
     respond_to do |format|

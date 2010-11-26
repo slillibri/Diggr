@@ -9,11 +9,12 @@ gem 'resque'
 gem 'devise', '1.1.rc0'
 gem 'SystemTimer'
 gem 'acts-as-taggable-on'
+gem 'sunspot_rails', '1.2.rc4'
 gem 'ruby-mysql', :require => 'mysql'
 gem 'stomp'
 gem 'nokogiri'
 gem 'sanitize'
-gem 'will_paginate'
+gem 'will_paginate', '3.0.pre'
 gem 'rsolr'
 
 # Use unicorn as the web server

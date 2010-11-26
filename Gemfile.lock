@@ -117,7 +117,7 @@ GEM
       rack (>= 1.0.0)
     warden (0.10.7)
       rack (>= 1.0.0)
-    will_paginate (2.3.15)
+    will_paginate (3.0.pre)
 
 PLATFORMS
   ruby
@@ -134,7 +134,6 @@ DEPENDENCIES
   ruby-mysql
   sanitize
   stomp
-  sunspot (= 1.2.rc4)
   sunspot_rails (= 1.2.rc4)
   unicorn
-  will_paginate
+  will_paginate (= 3.0.pre)

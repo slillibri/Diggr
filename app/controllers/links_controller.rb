@@ -114,12 +114,19 @@ class LinksController < ApplicationController
   end
   
   def results
-    @search = Link.search do
-      keywords params[:link][:name].downcase!
-      facet :tag_ids
-    end
+    rsolr = RSolr.connect(:url => 'http://localhost:8080/solr/rsolr')
+    query = params[:link][:name].gsub(/\s+$/, '')
+    search = rsolr.select(:q => "#{query}*", :fl=>'*,score', :hl => true, 
+        'hl.fl' => 'name,description', 'hl.fragsize' => 500000, 'hl.simple.pre' => '<result>', 'hl.simple.post' => '</result>')
     
-    @facets = @search.facet(:tag_ids).rows
+    @docs = search['response']['docs']
+    hl = search['highlighting']
+    @docs.each do |doc|
+      doc['name'] = hl[doc['id']]['name'] unless hl[doc['id']]['name'].nil?
+      doc['description'] = hl[doc['id']]['description'] unless hl[doc['id']]['description'].nil?
+    end
+
+    @total = search['response']['numFound']
     
     respond_to do |format|
       format.html

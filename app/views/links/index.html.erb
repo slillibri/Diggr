@@ -27,10 +27,9 @@
 
   <div class='span-24 append-bottom last'>
     <h3>Search links</h3>
-    <%= form_for :link, :url => {:action  => 'results'} do |f| -%>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      <%= f.submit "Submit", :disable_with => 'Submiting...' %>
+    <%= form_tag('/links/results', :method => "get") do -%>
+    <%= text_field_tag('query') -%>
+    <%= submit_tag("Submit", :disable_with => 'Submitting...') -%>
     <% end -%>
   </div>
 

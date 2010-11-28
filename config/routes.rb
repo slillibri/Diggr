@@ -2,12 +2,13 @@ Diggr::Application.routes.draw do
   devise_for :users
 
   root :to => "links#index"
+  match 'links/results', :to => 'links#results'
+
   resources :links do
     member do
       get 'vote'
     end
   end
-  match 'links/results', :to => 'links#results', :via => 'post'
   
   resources :comments do
     member do

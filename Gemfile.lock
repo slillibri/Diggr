@@ -42,7 +42,6 @@ GEM
       warden (~> 0.10.3)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    escape (0.0.4)
     highline (1.6.1)
     i18n (0.4.2)
     json (1.4.6)
@@ -62,7 +61,6 @@ GEM
       net-ssh (>= 1.99.1)
     nokogiri (1.4.4)
     polyglot (0.3.1)
-    pr_geohash (1.0.0)
     rack (1.2.1)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
@@ -92,6 +90,8 @@ GEM
       vegas (~> 0.1.2)
     rsolr (0.12.1)
       builder (>= 2.1.2)
+    rsolr-ext (0.12.1)
+      rsolr (>= 0.12.1)
     ruby-mysql (2.9.3)
     sanitize (1.2.1)
       nokogiri (~> 1.4.1)
@@ -99,12 +99,6 @@ GEM
       rack (~> 1.1)
       tilt (~> 1.1)
     stomp (1.1.6)
-    sunspot (1.2.rc4)
-      escape (= 0.0.4)
-      pr_geohash (~> 1.0)
-      rsolr (= 0.12.1)
-    sunspot_rails (1.2.rc4)
-      sunspot (= 1.2.rc4)
     thor (0.14.6)
     tilt (1.1)
     treetop (1.4.9)
@@ -130,10 +124,9 @@ DEPENDENCIES
   nokogiri
   rails (= 3.0.3)
   resque
-  rsolr
+  rsolr-ext
   ruby-mysql
   sanitize
   stomp
-  sunspot_rails (= 1.2.rc4)
   unicorn
   will_paginate (= 3.0.pre)

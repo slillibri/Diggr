@@ -114,10 +114,10 @@ class LinksController < ApplicationController
   end
   
   def results
-    rsolr = RSolr.connect(:url => 'http://localhost:8080/solr/rsolr')
-    query = params[:link][:name].gsub(/\s+$/, '')
-    search = rsolr.select(:q => "#{query}*", :fl=>'*,score', :hl => true, 
-        'hl.fl' => 'name,description', 'hl.fragsize' => 500000, 'hl.simple.pre' => '<result>', 'hl.simple.post' => '</result>')
+    rsolr = RSolr.connect(:url => RSOLR_SERVER)
+    query = params[:query].gsub(/\s+$/, '')
+    search = rsolr.find(:queries => "#{query}*", :page => params[:page], :per_page => 10,
+      :hl => true, 'hl.fl' => 'name,description', 'hl.fragsize' => 500000, 'hl.simple.pre' => '<result>', 'hl.simple.post' => '</result>')
     
     @docs = search['response']['docs']
     hl = search['highlighting']
@@ -125,9 +125,6 @@ class LinksController < ApplicationController
       doc['name'] = hl[doc['id']]['name'] unless hl[doc['id']]['name'].nil?
       doc['description'] = hl[doc['id']]['description'] unless hl[doc['id']]['description'].nil?
     end
-    
-    #TODO: pagination and faceting
-    
     @total = search['response']['numFound']
     
     respond_to do |format|

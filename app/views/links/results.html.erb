@@ -4,10 +4,11 @@
     <h3>Found <%= @total%> results</h3>
     <% @docs.each do |result| %>
     <div class='span-24 last' style='margin-bottom:10px'>
-      <div id="result_name_<%=result['id']%>" class='span-4'><%= link_to raw(result['name']), result['uri'] %></div>
-      <div id="result_desc_<%=result['id']%>" class='span-20 last'><%= raw(result['description'])%></div>
+      <div id="result_name" class='span-4'><%= link_to raw(result['name']), result['uri'] %></div>
+      <div id="result_desc" class='span-20 last'><%= raw(result['description']) %></div>
     </div>
     <% end %>
+    <%= will_paginate(@docs) %>
   </div>
   <%= link_to "Back to links", links_path %>
 </div>

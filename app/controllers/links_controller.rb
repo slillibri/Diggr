@@ -1,5 +1,5 @@
 class LinksController < ApplicationController
-  before_filter :authenticate_user!, :except => ['index', 'show']
+  before_filter :authenticate_user!, :except => ['index', 'show', 'results']
   include ActiveMessaging::MessageSender
   publishes_to :links
   
@@ -116,16 +116,19 @@ class LinksController < ApplicationController
   def results
     rsolr = RSolr.connect(:url => RSOLR_SERVER)
     query = params[:query].gsub(/\s+$/, '')
-    search = rsolr.find(:queries => "#{query}*", :page => params[:page], :per_page => 10,
-      :hl => true, 'hl.fl' => 'name,description', 'hl.fragsize' => 500000, 'hl.simple.pre' => '<result>', 'hl.simple.post' => '</result>')
+    @search = rsolr.find(:queries => "#{query}*", :page => params[:page], :per_page => 10,
+      :hl => true, 'hl.fl' => 'name,description', 'hl.fragsize' => 500000, 
+      'hl.simple.pre' => '<result>', 'hl.simple.post' => '</result>',
+      :facet => true, 'facet.field' => 'tags', 'facet.limit' => 10)
     
-    @docs = search['response']['docs']
-    hl = search['highlighting']
+    @docs = @search['response']['docs']
+    hl = @search['highlighting']
     @docs.each do |doc|
       doc['name'] = hl[doc['id']]['name'] unless hl[doc['id']]['name'].nil?
       doc['description'] = hl[doc['id']]['description'] unless hl[doc['id']]['description'].nil?
     end
-    @total = search['response']['numFound']
+    @total = @search['response']['numFound']
+    @facets = @search.facets.first
     
     respond_to do |format|
       format.html

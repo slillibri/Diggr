@@ -17,7 +17,7 @@ class IndexProcessor < ActiveMessaging::Processor
       logger.info("Processing message #{message}")
       link = Link.find(message)
       rsolr = RSolr.connect(:url => RSOLR_SERVER)
-      doc = {:uri => link.uri, :name => link.name, :id => link.id, :description => link.description, :created_at => link.created_at.strftime("%Y-%m-%dT%H:%M:%SZ")}
+      doc = {:uri => link.uri, :name => link.name, :id => link.id, :description => link.description, :created_at => link.created_at.strftime("%Y-%m-%dT%H:%M:%SZ"), :tags => link.tag_list.join(',')}
       rsolr.add(doc)
       rsolr.commit
     rescue Exception => e

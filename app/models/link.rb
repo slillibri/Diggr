@@ -7,15 +7,6 @@ class Link < ActiveRecord::Base
 
   acts_as_taggable
   
-  searchable :auto_index => false do
-    text :name
-    text :description
-    text :tags do
-      tags.map{|tag| tag.name}
-    end
-    integer :tag_ids, :multiple => true, :references => ActsAsTaggableOn::Tag
-  end
-  
   #after_save :index
   
   cattr_reader :per_page

@@ -1,5 +1,9 @@
 <div id='search_results' class='span-24 last'>
-
+  <div id='facets' class='span-24 last'>
+    <% @facets.items.each do |item| %>
+      <%= link_to item.value, links_results_path(:query => "#{params[:query]} AND tags:#{item.value}") %> (<%= item.hits%>)
+    <% end %>
+  </div>
   <div id='results' class='span-24 last'>
     <h3>Found <%= @total%> results</h3>
     <% @docs.each do |result| %>

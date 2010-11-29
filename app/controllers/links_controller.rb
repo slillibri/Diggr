@@ -119,7 +119,7 @@ class LinksController < ApplicationController
     @search = rsolr.find(:queries => "#{query}*", :page => params[:page], :per_page => 10,
       :hl => true, 'hl.fl' => 'name,description', 'hl.fragsize' => 500000, 
       'hl.simple.pre' => '<result>', 'hl.simple.post' => '</result>',
-      :facet => true, 'facet.field' => 'tags', 'facet.limit' => 10)
+      :facet => true, 'facet.field' => 'tags', 'facet.limit' => 10, 'facet.mincount' => 1)
     
     @docs = @search['response']['docs']
     hl = @search['highlighting']

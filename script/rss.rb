@@ -4,6 +4,7 @@ require 'rexml/document'
 require 'net/http'
 require 'sanitize'
 require 'yaml'
+require 'time'
 
 class ParseRss
 	def initialize(url)
@@ -20,6 +21,7 @@ class ParseRss
   			:name => item.elements['title'].text,
   			:uri =>  item.elements['id'].text,
   			:description => parse_text(item.elements['summary'].text),
+  			:created_at => Time.parse(item.elements['published'].text),
   			:tag_list => []
 		  }
 		  item.elements.each('.//category') do |category|

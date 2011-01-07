@@ -26,5 +26,7 @@ Diggr::Application.configure do
   
   REDIS_HOST = 'redis://127.0.0.1:6379'
   RSOLR_SERVER='http://localhost:8080/solr/rsolr'
+  TSTART = '2010-11-15T00:00:00Z'
+  
 end
 

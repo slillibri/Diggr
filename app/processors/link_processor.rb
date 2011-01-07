@@ -2,6 +2,7 @@ class LinkProcessor < ActiveMessaging::Processor
   require 'net/http'
   
   subscribes_to :links
+  publishes_to :dead_letter
   
   def on_error(err)
     if (err.kind_of?(StandardError))
@@ -32,14 +33,22 @@ class LinkProcessor < ActiveMessaging::Processor
       link.save
     rescue Exception => e
       logger.error(e)
+      publish :dead_letter, "#{message}\0"
+      
       raise ActiveMessage::AbortMessageException
     end    
   end
   
   def fetch(uri_str, limit = 10)
     raise ArgumentError, 'HTTP redirect too deep' if limit == 0
-
-    response = Net::HTTP.get_response(URI.parse(uri_str))
+    
+    url = URI.parse(uri_str)    
+    http = Net::HTTP.new(url.host, url.port)
+    if(url.port == 443)
+      http.use_ssl = true
+    end
+    
+    response = http.get(url.path)
     case response
     when Net::HTTPSuccess then response
     when Net::HTTPRedirection then fetch(response['location'], limit - 1)

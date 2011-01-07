@@ -9,5 +9,5 @@ ActiveMessaging::Gateway.define do |s|
   
   s.destination :links, '/queue/links'
   s.destination :index, '/queue/index'
-  
+  s.destination :dead_letter, '/queue/dead_letter'
 end

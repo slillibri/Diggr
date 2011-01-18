@@ -58,23 +58,10 @@ class LinkProcessor < ActiveMessaging::Processor
   end
   
   ## Parse html and crap out of text to max_length
-  def parse_text(text, max_length)
+  def parse_text(text)
     ## Strip html
     Sanitize::clean!(text, :remove_contents => ['script','style'])
     text.gsub!(/[\n\t]+/, ' ')
-    if(text.size > max_length)
-      count = max_length
-      if text.size < count
-        count = text.size-1
-      end
-      ## Parse backwards to the first space
-      while text[count] != 32
-        count = count - 1
-      end
-      new_text = text[0..count-1]
-      return new_text
-    else
-      return text
-    end
+    text
   end
 end

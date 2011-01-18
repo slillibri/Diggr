@@ -1,15 +1,15 @@
 <div id="link_<%= @link.id %>" class='span-24 last'>
+  <div id="link_title" class='span-23 append-1 last'><%= content_tag('h2', @link.name) %></div>
   <div id="link_description" class='span-23 append-1 last'><%= @link.description%></div>
 </div>
 
-<div id='tags' class='span-24 last'>
-  <div id='add_tag' class='span-24 last'><%= link_to "Add Tag", new_tag_path(:link => @link) %></div>
+<div id='tags' class='span-24 prepend-top last'>
   <div id='tags_title' class='span-4'><h3>Tags</h3></div>
   <div id='tags_list' class='span-20 last'>
     <% @link.tags.each do |tag| %>
       <%= tag.name%>
     <% end %>
-    <%= link_to "Add tag", new_tag_path(@link) %>
+    <p><%= link_to "Add tag", new_tag_path(@link) %></p>
   </div>
 </div>
 

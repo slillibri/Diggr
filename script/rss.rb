@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 require 'rubygems'
 require 'rexml/document'
+require 'nokogiri'
+require 'open-uri'
 require 'net/http'
 require 'sanitize'
 require 'yaml'
@@ -40,10 +42,19 @@ class ParseRss
   end
 end
 
-['linux','apache','nginx','haproxy','varnish','webserver'].each do |tag|
+## Gather popular tags (first page)
+doc = Nokogiri::HTML(open('http://serverfault.com/tags'))
+links = doc.xpath('//a[@class="post-tag"]')
+tags = []
+links.each {|link| 
+  tag = link.children.first.text
+  tags << tag if tag.size > 0
+}
+
+tags.each do |tag|
   puts "Processing #{tag}"
   p = ParseRss.new("http://serverfault.com/feeds/tag/#{tag}")
   data = p.parse
-  File.open("serverfault_#{tag}.yml", 'w') { |f| f.write(YAML::dump(data)) }
+  File.open("/tmp/serverfault_#{tag}.yml", 'w') {|f| f.write(YAML::dump(data))}
   puts "Done"
 end

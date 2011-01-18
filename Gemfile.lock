@@ -1,6 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
+    SystemTimer (1.2.1)
     abstract (1.0.0)
     actionmailer (3.0.3)
       actionpack (= 3.0.3)
@@ -78,6 +79,7 @@ GEM
       rake (>= 0.8.7)
       thor (~> 0.14.4)
     rake (0.8.7)
+    redis (2.1.1)
     rsolr (0.12.1)
       builder (>= 2.1.2)
     rsolr-ext (0.12.1)
@@ -101,11 +103,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  SystemTimer
   acts-as-taggable-on
   capistrano
   devise (= 1.1.rc0)
   nokogiri
   rails (= 3.0.3)
+  redis
   rsolr-ext
   ruby-mysql
   sanitize

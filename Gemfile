@@ -13,6 +13,8 @@ gem 'nokogiri'
 gem 'sanitize'
 gem 'will_paginate', '3.0.pre'
 gem 'rsolr-ext'
+gem 'redis'
+gem 'SystemTimer' #required for redis
 
 # Use unicorn as the web server
 gem 'unicorn'

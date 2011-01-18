@@ -11,8 +11,23 @@
   <% for link in @links -%>
     <div id="link_<%=link.id%>" class='span-24 last' style='margin-bottom: 10px'>
       <div id="vote_action_<%=link.id%>" class='span-3'>
-        <div id="upvote_<%=link.id%>" class='span-3 last'><%= link_to "Upvote", vote_link_path(link, :vote => 'upvote') %></div>
-        <div id="downvote_<%=link.id%>" class='span-3 last'><%= link_to "Downvote", vote_link_path(link, :vote => 'downvote') %></div>
+        <div id="upvote_<%=link.id%>" class='span-3 last'>
+          <% if user_signed_in? and !link.voters.include?(current_user.user_name) %>
+            <%= link_to "Upvote", vote_link_path(link, :vote => 'upvote') %>
+          <% else %>
+            Upvote
+          <% end %>
+        </div>
+        <div id="downvote_<%=link.id%>" class='span-3 last'>
+          <% if user_signed_in? and !link.voters.include?(current_user.user_name) %>
+            <%= link_to "Downvote", vote_link_path(link, :vote => 'downvote') %>
+          <% else %>
+            Downvote
+          <% end %>
+        </div>
+        <div id="votes_<%=link.id%>" class='span-3 last'>
+          <%= content_tag('b', "Votes") %> <%= link.votes%>
+        </div>
         <div id="created_<%=link.id%>" class='span-3 last'><%= link.created_at.strftime("%Y-%m-%d")%></div>
       </div>
       <div id="name_<%=link.id%>" class='span-3'><%= link_to link.name, link.uri %></div>

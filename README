@@ -22,14 +22,6 @@ Some configuration notes:
   I have Solr setup to use multicore, so you would have the following in your solr.home directory
       <solr persistent="true" sharedLib="lib">
        <cores adminPath="/admin/cores">
-        <core name="sunspot" instanceDir="sunspot" />
+            <core name="rsolr" instanceDir="rsolr" />
        </cores>
       </solr>
-
-  Also, to setup Sunspot, your config/sunspot.yml would look like this
-    development:
-      solr:
-        hostname: localhost
-        port: 8080
-        path: /solr/sunspot
-        log_level: DEBUG

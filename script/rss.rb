@@ -1,46 +1,18 @@
 #!/usr/bin/env ruby
-require 'rubygems'
-require 'rexml/document'
-require 'nokogiri'
-require 'open-uri'
-require 'net/http'
-require 'sanitize'
-require 'yaml'
-require 'time'
 
-class ParseRss
-	def initialize(url)
-		@url = url
-	end
-	
-	def parse
-		@content = Net::HTTP.get(URI.parse(@url))
-		xml = REXML::Document.new(@content)
-		data = {}
-		data['items'] = []
-		xml.elements.each('//entry') do |item|
-			it = {
-  			:name => item.elements['title'].text,
-  			:uri =>  item.elements['id'].text,
-  			:description => parse_text(item.elements['summary'].text),
-  			:created_at => Time.parse(item.elements['published'].text),
-  			:tag_list => []
-		  }
-		  item.elements.each('.//category') do |category|
-		    it[:tag_list] << category.attributes['term']
-	    end
-			data['items'] << it
-		end
-		data
-	end
-	
-	def parse_text(text)
-    ## Strip html
-    Sanitize::clean!(text, :remove_contents => ['script','style'])
-    text.gsub!(/[\n\t\s]+/, ' ')
-    return text
-  end
-end
+require 'rubygems'
+require 'rss_parser'
+require 'getopt/long'
+require 'pp'
+
+opts = Getopt::Long.getopts(
+  ['--debug', '-d', Getopt::BOOLEAN],
+  ['--max-pages', '-m', Getopt::REQUIRED])
+
+opts['m'] = 25 unless opts['m']
+opts['dest-dir'] = '../' unless opts['dest-dir']
+
+pp opts if opts['d']
 
 ## Gather popular tags (first page)
 doc = Nokogiri::HTML(open('http://serverfault.com/tags'))
@@ -49,12 +21,34 @@ tags = []
 links.each {|link| 
   tag = link.children.first.text
   tags << tag if tag.size > 0
+  puts "Adding #{tag}" if opts["d"]
 }
+
+puts "Processing #{tags.count} tags" if opts['d']
 
 tags.each do |tag|
   puts "Processing #{tag}"
-  p = ParseRss.new("http://serverfault.com/feeds/tag/#{tag}")
-  data = p.parse
-  File.open("/tmp/serverfault_#{tag}.yml", 'w') {|f| f.write(YAML::dump(data))}
-  puts "Done"
+  data = []
+  ## Fetch first page, determine total pages
+  doc = Nokogiri::HTML(open("http://serverfault.com/questions/tagged/#{tag}"))
+  pager = doc.xpath('//div[@class="pager fl"]')
+  pages = pager.xpath('//span[@class="page-numbers"]').last.text.to_i
+  pages = opts["m"].to_i if pages > opts["m"].to_i
+  puts "Fetching #{opts['m']} pages instead of #{pages} because of --max-pages option" if opts["d"]
+  
+  puts "Processing #{pages} pages for tag #{tag}"
+  
+  (1..pages).each do |page|
+    p = ParseRss.new("http://serverfault.com/feeds/tag/#{tag}?page=#{page}")
+    links = p.parse
+    if links.size == 0
+      break
+    end
+    
+    data = data.concat(p.parse)
+    printf("Page %d (%d links)...  ", page, data.count)
+    STDOUT.flush
+  end
+  File.open("#{opts['dest-dir']}/test/data/serverfault_#{tag}.yml", 'w') {|f| f.write(YAML::dump(data))}
+  puts "Done (#{data.count} links)"
 end

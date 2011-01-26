@@ -24,9 +24,9 @@ class LinkProcessor < ActiveMessaging::Processor
       result = fetch(link.uri)
       
       ##Parse Title and body summary
-      doc = Nokogiri::HTML::Document.parse(result.body)
-      link.name = parse_text(doc.xpath("//title").to_s, 255)
-      link.description = parse_text(doc.xpath("//body").to_s, 500)
+      doc = Nokogiri::HTML(result.body)
+      link.name = parse_text(doc.xpath("//title").to_s)
+      link.description = parse_text(doc.xpath('//tr[@class="postcell"]').xpath('//div[@class="post-text"]').text)
       link.processed = true
       
       ##Save
